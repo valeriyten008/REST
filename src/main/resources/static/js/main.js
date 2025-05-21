@@ -21,13 +21,4 @@ document.addEventListener("DOMContentLoaded", async function verification() {
     }
 })
 
-//Заполнение Header
-document.addEventListener("DOMContentLoaded", async function header() {
-    let html = ``;
-    const infoUser = document.querySelector('#info');
-    let user = await fetch('/main-page/user');
-    let json = await user.json();
-    html += `<span class="fw-bold">${json.email} </span><span>with roles </span><span>${json.roles.map(r => r.authority)
-    } </span>`
-    infoUser.innerHTML = html;
-})
+
