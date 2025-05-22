@@ -23,7 +23,7 @@ public class RestUserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
@@ -38,7 +38,7 @@ public class RestUserController {
     }
 
     // Создать нового пользователя
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<?> createUser(@RequestBody @Valid User user,
                                         @RequestParam(value = "roleId", required = false) List<Long> roleId,
                                         BindingResult bindingResult) {
