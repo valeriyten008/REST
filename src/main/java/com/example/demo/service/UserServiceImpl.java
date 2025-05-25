@@ -26,6 +26,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmailWithRoles(String email){
+        return userRepository.findByEmailWithRoles(email);
+    }
+
+
+    @Override
     public List<Role> getAllRoles() {
         return roleService.findAll();
     }

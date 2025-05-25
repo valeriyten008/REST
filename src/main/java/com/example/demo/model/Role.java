@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +22,7 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
+    @JsonProperty("name")
     public String getAuthority() {
         return name;
     }

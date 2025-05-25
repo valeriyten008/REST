@@ -14,4 +14,6 @@ public interface UserService {
     void deleteById(Long id);
     User findByEmail(String email);
     List<Role> getAllRoles();
+    User findByEmailWithRoles(String email);
+
 }

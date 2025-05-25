@@ -5,17 +5,17 @@ document.addEventListener("DOMContentLoaded", async function verification() {
     let role = "";
     let json = await roles.json();
     for (let i = 0; i < json.roles.length; i++) {
-        role = json.roles[i].roles
+        role = json.roles[i].name
         if (role === "ADMIN") {
             isUser = false;
         }
     }
     if (isUser) {
-        document.getElementById("user-tab").classList.add("active");
+        document.getElementById("v-pills-admin-tab").classList.add("active");
         document.getElementById("user").classList.add("show", "active");
         await getUser();
     } else {
-        document.getElementById("admin-tab").classList.add("active");
+        document.getElementById("v-pills-user-tab").classList.add("active");
         document.getElementById("admin").classList.add("show", "active");
         await getAllUsers();
     }

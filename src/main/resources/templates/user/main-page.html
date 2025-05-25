@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link href="/static/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/bootstrap.css" rel="stylesheet">
 
   <title>MY_APP</title>
 </head>
@@ -32,10 +32,10 @@
   <div class="nav flex-column nav-pills me-3 mt-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <ul class="nav flex-column nav-pills border-0" id="myTabS" role="tablist">
           <li class="nav-item text-left" role="presentation" sec:authorize="hasAuthority('ADMIN')">
-              <button class="nav-link active" style = "width:220px" id="admin-tab" data-bs-toggle="pill" data-bs-target="#v-pills-admin" type="button" role="tab" aria-controls="v-pills-admin" aria-selected="true">ADMIN</button>
+              <button class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill" data-bs-target="#v-pills-admin" type="button" role="tab" aria-controls="v-pills-admin" aria-selected="true">ADMIN</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="user-tab" data-bs-toggle="pill" data-bs-target="#v-pills-user" type="button" role="tab" aria-controls="v-pills-user" aria-selected="false">USER</button>
+              <button class="nav-link" id="v-pills-user-tab" data-bs-toggle="pill" data-bs-target="#v-pills-user" type="button" role="tab" aria-controls="v-pills-user" aria-selected="false">USER</button>
           </li>
       </ul>
   </div>
@@ -89,38 +89,46 @@
 
                   <form id="formAddUser">
                       <div class="d-flex flex-column align-items-center">
+
                           <div class="mb-3">
-                              <h6 class="text-dark fw-bold text-center">First Name</h6>
+                              <label for="firstName" class="form-label fw-bold text-dark text-center">First Name</label>
                               <input id="firstName" name="addFirstName" style="width: 400px;" type="text" class="form-control">
                           </div>
+
                           <div class="mb-3">
-                              <h6 class="text-dark fw-bold text-center">Last Name</h6>
+                              <label for="lastName" class="form-label fw-bold text-dark text-center">Last Name</label>
                               <input id="lastName" name="addLastName" style="width: 400px;" type="text" class="form-control">
                           </div>
+
                           <div class="mb-3">
-                              <h6 class="text-dark fw-bold text-center">Age</h6>
+                              <label for="age" class="form-label fw-bold text-dark text-center">Age</label>
                               <input id="age" name="addAge" style="width: 400px;" type="number" class="form-control">
                           </div>
+
                           <div class="mb-3">
-                              <h6 class="fw-bold text-dark text-center">Email</h6>
+                              <label for="email" class="form-label fw-bold text-dark text-center">Email</label>
                               <input id="email" name="addEmail" style="width: 400px;" type="email" class="form-control">
                           </div>
+
                           <div class="mb-3">
-                              <h6 class="fw-bold text-dark text-center">Password</h6>
+                              <label for="password" class="form-label fw-bold text-dark text-center">Password</label>
                               <input id="password" name="addPassword" style="width: 400px;" type="text" class="form-control">
                           </div>
+
                           <div class="mb-3">
-                              <h6 class="fw-bold text-dark text-center">Role</h6>
-                              <select style="width: 400px;" id="Inputrole" class="form-select" multiple name="listRoles" required="required">
+                              <label for="Inputrole" class="form-label fw-bold text-dark text-center">Role</label>
+                              <select style="width: 400px;" id="Inputrole" class="form-select" multiple name="listRoles" required>
                                   <option value="ADMIN">ADMIN</option>
-                                  <option selected="selected" value="USER">USER</option>
+                                  <option selected value="USER">USER</option>
                               </select>
                           </div>
+
                           <div>
                               <input style="width: 150px;" class="btn btn-success" type="submit" id="addNewUser" value="Add new user">
                           </div>
                       </div>
                   </form>
+
 
               </div>
             </div>
@@ -156,11 +164,11 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" th:src="@{js/main.js}" src="/static/js/main.js"></script>
-<script type="text/javascript" th:src="@{js/get.js}" src="/static/js/get.js"></script>
-<script type="text/javascript" th:src="@{js/post.js}" src="/static/js/post.js"></script>
-<script type="text/javascript" th:src="@{js/put.js}" src="/static/js/put.js"></script>
-<script type="text/javascript" th:src="@{js/delete.js}" src="/static/js/delete.js"></script>
-<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" th:src="@{js/main.js}" src="/js/main.js"></script>
+<script type="text/javascript" th:src="@{js/get.js}" src="/js/get.js"></script>
+<script type="text/javascript" th:src="@{js/post.js}" src="/js/post.js"></script>
+<script type="text/javascript" th:src="@{js/put.js}" src="/js/put.js"></script>
+<script type="text/javascript" th:src="@{js/delete.js}" src="/js/delete.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

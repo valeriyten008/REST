@@ -12,7 +12,7 @@ async function getAllUsers() {
                 <td>${users.lastname}</td>
                 <td>${users.age}</td>
                 <td>${users.email}</td>
-                <td>${users.roles.map(role => role.name)} </td>
+                <td>${users.roles.map(role => role.name).join(", ")}</td>
                 <td>
                     <button class="btn btn-primary" data-userid="${users.id}" data-action="edit" id="getEditModal" type="button" value="edit">Edit</button>
                 </td>
@@ -51,7 +51,7 @@ async function getUser() {
             <tr class="table-light align-middle" style="height: 50px">
                 <td>${json.id}</td>
                 <td>${json.firstname}</td>
-                <td>${json.lastname}
+                <td>${json.lastname}</td>
                 <td>${json.age}</td>
                 <td>${json.email}</td>
                 <td>${json.roles.map(role => " " + role.roles)}</td>
@@ -64,14 +64,14 @@ async function getUser() {
 }
 
 //TAB
-document.querySelector('#admin-tab').addEventListener("click", async function(){
-    document.getElementById("admin-tab").classList.add("active");
+document.querySelector('#v-pills-admin-tab').addEventListener("click", async function(){
+    document.getElementById("v-pills-admin-tab").classList.add("active");
     document.getElementById("admin").classList.add("show", "active");
     await getAllUsers();
 })
 
-document.querySelector('#user-tab').addEventListener('click', async function(){
-    document.getElementById("user-tab").classList.add("active");
+document.querySelector('#v-pills-user-tab').addEventListener('click', async function(){
+    document.getElementById("v-pills-user-tab").classList.add("active");
     document.getElementById("user").classList.add("show", "active");
     await getUser();
 })
