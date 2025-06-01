@@ -39,16 +39,16 @@ public class RestAdminController {
 
     // Создать нового пользователя
     @PostMapping("/admin")
-    public ResponseEntity<?> createUser(@RequestBody @Valid User user,
-                                        @RequestParam(value = "roleId", required = false) List<Long> roleId,
-                                        BindingResult bindingResult) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("Validation error");
         }
 
-        userService.save(user, roleId);
+        userService.save(user);
         return ResponseEntity.ok("User created");
     }
+
+
 
     // Обновить пользователя
     @PutMapping("/admin/{id}")

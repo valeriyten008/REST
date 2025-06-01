@@ -4,11 +4,11 @@ import jakarta.transaction.Transactional;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.UserRepository;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,11 +18,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -37,14 +39,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user, List<Long> roleId) {
-        List<Role> roles = roleId.stream()
-                .map(roleService::findById)
-                .filter(Objects::nonNull)
+    public void save(User user) {
+        // Шифруем пароль
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Получаем роли по их id (т.к. с фронта приходит только id)
+        List<Role> roles = user.getRoles().stream()
+                .map(role -> roleService.findById(role.getId()))
                 .collect(Collectors.toList());
+
+        // Устанавливаем роли
         user.setRoles(roles);
+
+        // Сохраняем пользователя
         userRepository.save(user);
     }
+
 
 
     @Override
@@ -72,7 +82,7 @@ public class UserServiceImpl implements UserService {
             userToBeUpdated.setLastName(updatedUser.getLastName());
             userToBeUpdated.setAge(updatedUser.getAge());
             userToBeUpdated.setEmail(updatedUser.getEmail());
-            userToBeUpdated.setPassword(updatedUser.getPassword());
+            userToBeUpdated.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
             userToBeUpdated.setRoles(updatedUser.getRoles());
 
             userRepository.save(userToBeUpdated);

@@ -1,6 +1,6 @@
 async function deleteUser(id, modal) {
     let myModal = document.querySelector('#modal-body');
-    let getOneUser = await fetch('main-page/admin/{id}' + id, {method: 'GET'});
+    let getOneUser = await fetch(`/main-page/admin/${id}`);
     let json = getOneUser.json();
     document.getElementById("modalTitle").innerHTML = "Delete user";
     document.getElementById("modal-footer").innerHTML =
@@ -12,15 +12,15 @@ async function deleteUser(id, modal) {
         <div class="d-flex flex-column align-items-center">
             <div class="mb-3">
                 <h6 class="text-dark fw-bold text-center">Id</h6>
-                <input disabled style="width: 400px;" class="form-control" type="text" name="username" value="${json.id}">
+                <input disabled style="width: 400px;" class="form-control" type="text" name="id" value="${json.id}">
             </div>
             <div class="mb-3">
                 <h6 class="text-dark fw-bold text-center">First Name</h6>
-                <input disabled style="width: 400px;" class="form-control" type="text" name="username" value="${json.firstname}">
+                <input disabled style="width: 400px;" class="form-control" type="text" name="firstName" value="${json.firstName}">
             </div>
             <div class="mb-3">
                 <h6 class="text-dark fw-bold text-center">Last Name</h6>
-                <input disabled style="width: 400px;" class="form-control" type="text" name="username" value="${json.lastname}">
+                <input disabled style="width: 400px;" class="form-control" type="text" name="lastName" value="${json.lastName}">
             </div>
             <div class="mb-3">
                 <h6 class="text-dark fw-bold text-center">Age</h6>
@@ -31,10 +31,14 @@ async function deleteUser(id, modal) {
                 <input disabled style="width: 400px;" class="form-control" type="text" name="email" value="${json.email}">
             </div>
             <div class="mb-3">
+                <h6 class="text-dark fw-bold text-center">Password</h6>
+                <input name="password" type="password" disabled style="width: 400px;" class="form-control" id="password" value="${json.password}">
+            </div>
+            <div class="mb-3">
                 <h6 class="text-dark fw-bold text-center">Role</h6>
                 <select disabled style="width: 400px;" class="form-select" multiple name="listRoles" required="required">
-                    <option value="ADMIN">ADMIN</option>
-                    <option selected="selected" value="USER">USER</option>
+                    <option value="1">ADMIN</option>
+                    <option selected="selected" value="2">USER</option>
                 </select>
             </div>
         </div>
@@ -43,17 +47,24 @@ async function deleteUser(id, modal) {
         myModal.innerHTML = html;
 
     })
-    document.getElementById("modalBtn").addEventListener('click',  async function (evt){
-        const deleteUser = await fetch('api/admin/' + id , {
+    document.getElementById("modalBtn").onclick = async function () {
+        const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        const deleteResponse = await fetch(`/main-page/admin/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
                 'Accept': 'application/json',
-                'Referer': null
-            }});
-        if (deleteUser.ok) {
+                [header]: token
+            }
+        });
+
+        if (deleteResponse.ok) {
             await getAllUsers();
             modal.modal('hide');
+        } else {
+            alert("Error deleting user");
         }
-    })
+    };
 }
