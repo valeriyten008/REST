@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", async function verification() {
     if (isUser) {
         document.getElementById("v-pills-user-tab").classList.add("active");
         document.getElementById("v-pills-user").classList.add("show", "active");
-        document.getElementById("v-pills-admin-tab").remove();
-        document.getElementById("v-pills-admin").remove();
         await getUser();
     } else {
         document.getElementById("v-pills-admin-tab").classList.add("active");
