@@ -32,7 +32,7 @@ async function editUser(id, modal) {
            </div>
            <div class="mb-3">
                 <h6 class="text-dark fw-bold text-center">Password</h6>
-                <input name="editPassword" type="password" style="width: 400px;" class="form-control" id="editPassword" value="${json.password}">
+                <input name="editPassword" type="password" style="width: 400px;" class="form-control" id="editPassword">
            </div>
            <div class="mb-3">
                <h6 class="text-dark fw-bold text-center">Role</h6>
