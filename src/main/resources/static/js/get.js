@@ -4,7 +4,6 @@ async function getAllUsers() {
     if (get.ok) {
         const table = document.querySelector("#tableUsers tbody")
         let json = await get.json();
-        console.log(json);
         json.forEach(users => {
             html += `
             <tr class="table-light align-middle table-striped" style="height: 50px">
@@ -66,9 +65,6 @@ async function getUser() {
 
 //TAB
 document.addEventListener("DOMContentLoaded", async () => {
-    // При загрузке по умолчанию — админская вкладка
-    await getAllUsers();
-    activateAdminTab();
 
     document.querySelector('#v-pills-admin-tab').addEventListener("click", async () => {
         activateAdminTab();

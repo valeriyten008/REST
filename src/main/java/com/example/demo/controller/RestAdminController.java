@@ -39,7 +39,7 @@ public class RestAdminController {
 
     // Создать нового пользователя
     @PostMapping("/admin")
-    public ResponseEntity<?> createUser(@RequestBody @Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<String> createUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("Validation error");
         }
@@ -52,14 +52,14 @@ public class RestAdminController {
 
     // Обновить пользователя
     @PutMapping("/admin/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
         userService.updateUser(id, user);
         return ResponseEntity.ok("User updated");
     }
 
     // Удалить пользователя
     @DeleteMapping("/admin/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.ok("User deleted");
     }

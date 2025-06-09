@@ -1,24 +1,32 @@
-let isUser = true;
-//Проверка роли
 document.addEventListener("DOMContentLoaded", async function verification() {
-    const roles = await fetch('main-page/user');
-    let role = "";
-    let json = await roles.json();
-    for (let i = 0; i < json.roles.length; i++) {
-        role = json.roles[i].name
-        if (role === "ADMIN") {
-            isUser = false;
-        }
-    }
+    const userResponse = await fetch('/main-page/user');
+    const userData = await userResponse.json();
+    const roles = userData.roles.map(role => role.name);
+
+    const isUser = roles.includes("ROLE_USER") && !roles.includes("ROLE_ADMIN");
+
     if (isUser) {
-        document.getElementById("v-pills-user-tab").classList.add("active");
-        document.getElementById("v-pills-user").classList.add("show", "active");
+        document.getElementById("v-pills-admin-tab").style.display = "none";
+        activateUserTab();
         await getUser();
     } else {
-        document.getElementById("v-pills-admin-tab").classList.add("active");
-        document.getElementById("v-pills-admin").classList.add("show", "active");
+        activateAdminTab();
         await getAllUsers();
+        activateUserTab();
+        await getUser();
     }
-})
+
+    // обработчики переключения вкладок
+    document.querySelector('#v-pills-admin-tab').addEventListener("click", async () => {
+        activateAdminTab();
+        await getAllUsers();
+    });
+
+    document.querySelector('#v-pills-user-tab').addEventListener('click', async () => {
+        activateUserTab();
+        await getUser();
+    });
+});
+
 
 
